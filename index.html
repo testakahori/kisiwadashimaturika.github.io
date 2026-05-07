@@ -937,38 +937,163 @@
   .serif{font-family:var(--serif)}
 
   /* ============ Responsive ============ */
+
+  /* --- Tablet (iPad横 ≤ 1024px) --- */
+  @media (max-width: 1024px){
+    :root{--gutter:32px}
+    .hero-grid{grid-template-columns:1fr 1fr;gap:48px}
+    .compare-cards{grid-template-columns:1fr 1fr}
+    .cta-grid{grid-template-columns:1fr 1fr}
+    .cta-btn.primary{grid-column:1 / -1}
+    .cap-grid{grid-template-columns:1fr 1fr;gap:32px 48px}
+    h2.section-title{font-size:34px}
+  }
+
+  /* --- Tablet縦 〜 大型スマホ (≤ 980px) --- */
   @media (max-width: 980px){
     :root{--gutter:24px}
     body{font-size:17px}
     section{padding:80px 0}
     .hero{padding:80px 0}
-    .hero h1{font-size:40px}
+
+    /* ★ ヒーローグリッド → 縦積み */
+    .hero-grid{grid-template-columns:1fr;gap:40px}
+    .hero-copy{order:1}
+    .hero-visual{order:2}
+    .hero-video-wrap{aspect-ratio:16/9;max-width:540px;margin:0 auto}
+    .hero h1{font-size:40px;max-width:100%}
+    .hero-lead{max-width:100%}
+    .hero-meta{max-width:100%}
+    .hero-signature{display:none}
+
     .cta-section h2{font-size:32px}
     h2.section-title{font-size:28px}
+
+    /* グリッド崩し */
     .kishiwada-grid,.handoff-stack,.disconnect-grid{grid-template-columns:1fr;gap:32px}
-    .target-three,.kpi-grid,.usecase-row,.cap-grid{grid-template-columns:1fr;gap:16px}
+    .target-three,.kpi-grid,.usecase-row{grid-template-columns:1fr;gap:16px}
+    .cap-grid{grid-template-columns:1fr;gap:0}
     .cost-grid,.input-cost-compare{grid-template-columns:1fr;gap:16px}
+    .compare-cards{grid-template-columns:1fr 1fr}
+    .phase-track{grid-template-columns:1fr}
+    .cta-grid{grid-template-columns:1fr}
+
+    /* ★ キャラクターデュオ → 縦積み */
+    .character-duo{grid-template-columns:1fr;max-width:400px}
+
+    /* ★ 比較テーブル → 横スクロール */
+    #compare-table-view{overflow-x:auto;-webkit-overflow-scrolling:touch}
+    .compare-table{min-width:640px}
+
+    /* ★ 手オフ図 → 横スクロール */
+    .handoff-diagram{overflow-x:auto;-webkit-overflow-scrolling:touch}
+    .handoff-diagram svg{min-width:700px}
+
+    /* ギャップ図 */
     .gap-diagram{padding:32px 24px}
     .gap-diagram-row{grid-template-columns:1fr;gap:16px}
     .gap-mid{padding:8px 0;min-width:0}
     .gap-mid .arrow{transform:rotate(90deg)}
+
+    /* パディング調整 */
     .input-cost-conclusion{padding:24px 28px}
     .cost-conclusion{padding:24px 28px;font-size:17px}
-    .compare-cards{grid-template-columns:1fr 1fr}
-    .phase-track{grid-template-columns:1fr}
-    .phase{border-radius:var(--radius) !important;border-right:1px solid var(--line) !important;margin-bottom:16px}
-    .cta-grid{grid-template-columns:1fr}
-    .hero-meta{grid-template-columns:1fr}
-    .hero-meta > div{
-      border-right:none;border-bottom:1px solid var(--line);
-      padding:16px 0 !important;
-    }
-    .about-inner{grid-template-columns:1fr;gap:8px}
-    .extend{grid-template-columns:1fr;gap:16px}
+    .target-intro{padding:32px}
     .principle{grid-template-columns:1fr;gap:16px;padding:32px}
     .funnel{padding:32px 24px;overflow-x:auto}
-    .target-intro{padding:32px}
+    .extend{grid-template-columns:1fr;gap:16px}
+
+    /* フェーズ */
+    .phase{border-radius:var(--radius) !important;border-right:1px solid var(--line) !important;margin-bottom:16px}
+
+    /* ヒーローメタ */
+    .hero-meta{grid-template-columns:1fr}
+    .hero-meta > div{border-right:none;border-bottom:1px solid var(--line);padding:16px 0 !important}
+
+    /* その他 */
+    .about-inner{grid-template-columns:1fr;gap:8px}
     .footer-inner{flex-direction:column;align-items:flex-start}
+  }
+
+  /* --- スマートフォン (≤ 599px) --- */
+  @media (max-width: 599px){
+    :root{--gutter:16px}
+    body{font-size:16px;line-height:1.8}
+    section{padding:56px 0}
+    section.dark{padding:56px 0}
+
+    .hero{padding:48px 0 56px}
+    .hero h1{font-size:30px;line-height:1.5;margin-bottom:24px}
+    .hero-eyebrow{font-size:12px;margin-bottom:20px}
+    .hero-lead{font-size:15px;margin-bottom:32px}
+    .hero-video-wrap{aspect-ratio:4/3;max-width:100%}
+
+    h2.section-title{font-size:22px;line-height:1.55;margin-bottom:20px}
+    .section-lead{font-size:15px;margin-bottom:48px}
+    .section-label{font-size:12px;margin-bottom:14px}
+
+    .cta-section{padding:64px 0}
+    .cta-section h2{font-size:24px;margin-bottom:20px}
+    .cta-section .lead{font-size:15px;margin-bottom:40px}
+    .cta-btn{padding:24px 20px}
+    .cta-btn h3{font-size:20px}
+
+    /* トップバー */
+    .topbar-right{display:none}
+    .topbar-inner{padding:10px var(--gutter)}
+    .topbar-left{gap:12px}
+
+    /* コストカード */
+    .cost-intro{font-size:19px}
+    .cost-card{padding:24px 20px}
+    .cost-conclusion{padding:20px;font-size:16px}
+
+    /* 比較 */
+    .input-cost-compare{gap:12px}
+    .icc{padding:24px 20px}
+    .input-cost-conclusion{padding:20px}
+    .input-cost-conclusion p{font-size:18px}
+
+    /* ブロッククォート */
+    .blockquote-note{padding:20px 20px}
+    .blockquote-note p{font-size:16px;line-height:1.85}
+
+    /* ターゲット */
+    .target-intro{padding:24px 20px}
+    .target-intro h3{font-size:20px}
+    .target-card{padding:24px 20px}
+    .usecase{padding:20px}
+    .usecase p{font-size:16px}
+
+    /* KPI */
+    .kpi{padding:24px 20px}
+    .kpi h4{font-size:18px}
+    .kpi-note{padding:16px 20px;font-size:13px}
+
+    /* フェーズ */
+    .phase{padding:28px 20px}
+    .phase h4{font-size:22px}
+    .extend{padding:20px}
+
+    /* ハンドオフ */
+    .handoff-copy h3{font-size:20px}
+    .handoff-list li{font-size:14px;padding:14px 0}
+
+    /* ギャップ */
+    .gap-block{padding:20px 16px}
+    .gap-block .name{font-size:20px}
+    .gap-tagline{font-size:18px}
+
+    /* キャラクター */
+    .character-duo{max-width:300px;margin:0 auto}
+
+    /* プリンシプル */
+    .principle{padding:24px 20px}
+    .principle p{font-size:16px}
+
+    /* フッター */
+    footer{font-size:12px;padding:24px 0}
+    .footer-inner{gap:12px}
   }
 </style>
 </head>
