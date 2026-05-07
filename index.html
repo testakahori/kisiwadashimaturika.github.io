@@ -1,0 +1,1777 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>行政につながれない人へ、新しい相談の入口を。— 地車 祭華 相談支援フロント構想</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;700&family=Noto+Sans+JP:wght@300;400;500;700&family=Shippori+Mincho:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  /* =====================================================================
+     Design System
+     - 8の倍数スケール: 8 / 16 / 24 / 32 / 40 / 48 / 64 / 80 / 96 / 128 / 160
+     - 例外: 4, 12 のみ許容 (細部の視覚調整)
+     - 配色 70:25:5
+        ベース 70%  : #FFFFFF / #F4F6FA (bg-soft) / #ECEFF5 (bg-panel)
+        メイン 25%  : Navy系 (#0E1E37 / #142849 / #1C3761)
+        アクセント 5%: Red (#B5322A) ※強調語/Primary CTA 周辺のみ
+        補助色      : Green (#2F6B52) 緑は安心感の補助に限定
+                       Gold (#B8893A) 装飾の細線・dark背景内のみ
+     - タイポ
+        本文 16px / line-height 1.85 / letter-spacing .02em
+        h1   56px / line-height 1.4   / letter-spacing .02em
+        h2   32px / line-height 1.5   / letter-spacing .02em
+        h3   20px / line-height 1.6
+       ===================================================================== */
+  :root{
+    /* Palette */
+    --navy-900:#0E1E37;
+    --navy-800:#142849;
+    --navy-700:#1C3761;
+    --navy-500:#3B5480;
+    --ink:#0B1420;
+    --text:#1A2233;
+    --muted:#5A6A82;
+    --line:#D9DFE8;
+    --line-strong:#B8C2D1;
+    --bg:#FFFFFF;
+    --bg-soft:#F4F6FA;
+    --bg-panel:#ECEFF5;
+    --green-700:#2F6B52;
+    --green-500:#5C9A7F;
+    --green-50:#E8F0EC;
+    --red:#B5322A;
+    --red-soft:#F0DCDA;
+    --gold:#B8893A;
+    --gold-soft:#EADFC4;
+
+    /* Spacing scale (8の倍数) */
+    --s-1:8px;
+    --s-2:16px;
+    --s-3:24px;
+    --s-4:32px;
+    --s-5:40px;
+    --s-6:48px;
+    --s-8:64px;
+    --s-10:80px;
+    --s-12:96px;
+    --s-16:128px;
+    --s-20:160px;
+
+    --radius-sm:4px;
+    --radius:8px;
+    --radius-lg:16px;
+
+    --shadow-card:0 1px 2px rgba(14,30,55,.04), 0 8px 24px rgba(14,30,55,.06);
+
+    --serif:"Shippori Mincho","Noto Serif JP", serif;
+    --sans:"Noto Sans JP", system-ui, sans-serif;
+
+    /* Container */
+    --container:1120px;
+    --container-narrow:880px;
+    --gutter:40px; /* 5×8 */
+  }
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:var(--bg);color:var(--text);
+    font-family:var(--sans);font-size:18px;line-height:1.9;
+    letter-spacing:.02em;font-weight:400;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  img{max-width:100%;display:block}
+  a{color:inherit}
+
+  /* Containers */
+  .wrap{max-width:var(--container);margin:0 auto;padding:0 var(--gutter)}
+  .wrap-narrow{max-width:var(--container-narrow);margin:0 auto;padding:0 var(--gutter)}
+
+  /* ============ Top bar ============ */
+  .topbar{
+    border-bottom:1px solid var(--line);
+    background:#fff;
+  }
+  .topbar-inner{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:16px var(--gutter);
+    max-width:1280px;margin:0 auto;
+    font-size:14px;color:var(--muted);
+    letter-spacing:.04em;
+  }
+  .topbar-left{display:flex;gap:24px;align-items:center}
+  .topbar-tag{
+    font-size:12px;letter-spacing:.18em;
+    color:var(--navy-800);font-weight:500;
+    padding:4px 10px;border:1px solid var(--line-strong);
+    border-radius:2px;
+  }
+  .topbar-right{display:flex;gap:24px}
+
+  /* ============ Hero ============ */
+  .hero{
+    position:relative;
+    padding:104px 0 112px;
+    background:
+      radial-gradient(1200px 600px at 88% -10%, rgba(184,137,58,.05), transparent 60%),
+      radial-gradient(900px 500px at -10% 110%, rgba(47,107,82,.06), transparent 60%),
+      #fff;
+    overflow:hidden;
+    border-bottom:1px solid var(--line);
+  }
+  .hero-grid{display:grid;grid-template-columns:7fr 5fr;gap:80px;align-items:center}
+  .hero-video-wrap{
+    position:relative;aspect-ratio:4/5;
+    border-radius:12px;overflow:hidden;
+    background:linear-gradient(180deg,#F0E6D4 0%, #E5D9C3 100%);
+    box-shadow:0 24px 80px rgba(14,30,55,.18), 0 4px 12px rgba(14,30,55,.06);
+    border:1px solid rgba(184,137,58,.25);
+  }
+  .hero-video-wrap video{width:100%;height:100%;object-fit:cover;display:block}
+  .hero-video-corner{position:absolute;width:32px;height:32px;border:1px solid var(--gold);pointer-events:none}
+  .hero-video-corner.tl{top:14px;left:14px;border-right:none;border-bottom:none}
+  .hero-video-corner.br{bottom:14px;right:14px;border-left:none;border-top:none}
+  .hero-video-caption{
+    position:absolute;left:0;right:0;bottom:0;
+    padding:24px 22px 18px;
+    background:linear-gradient(180deg, transparent 0%, rgba(14,30,55,.78) 100%);
+    color:#fff;display:flex;justify-content:space-between;align-items:flex-end;
+    font-size:11px;letter-spacing:.22em;
+  }
+  .hero-video-caption .kanji{font-family:var(--serif);font-size:13px;letter-spacing:.36em;color:#fff}
+  .hero-eyebrow{
+    font-size:14px;letter-spacing:.24em;
+    color:var(--navy-700);
+    font-weight:500;
+    margin-bottom:32px;
+    display:flex;align-items:center;gap:16px;
+    text-transform:uppercase;
+  }
+  .hero-eyebrow::before{
+    content:"";width:32px;height:1px;background:var(--navy-700);display:inline-block;
+  }
+  .hero h1{
+    font-family:var(--serif);font-weight:700;
+    font-size:54px;line-height:1.4;letter-spacing:.02em;
+    color:var(--navy-900);margin:0 0 36px;max-width:560px;text-wrap:pretty;
+  }
+  .hero h1 .accent{color:var(--red)}
+  .hero-lead{
+    font-size:16px;line-height:1.95;color:var(--text);
+    max-width:520px;margin:0 0 44px;text-wrap:pretty;
+  }
+  .hero-lead strong{color:var(--navy-900);font-weight:500}
+
+  .hero-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--line);padding-top:24px;max-width:560px}
+  .hero-meta > div{padding:0 16px 0 0;border-right:1px solid var(--line)}
+  .hero-meta > div:first-child{padding-left:0}
+  .hero-meta > div:last-child{border-right:none;padding-right:0;padding-left:16px}
+  .hero-meta > div:nth-child(2){padding-left:16px}
+  .hero-meta dt{font-size:11px;letter-spacing:.16em;color:var(--muted);margin-bottom:8px;font-weight:500}
+  .hero-meta dd{font-family:var(--serif);font-size:14px;color:var(--navy-900);margin:0;line-height:1.6}
+
+  .hero-signature{
+    position:absolute;right:var(--gutter);bottom:40px;
+    font-size:11px;color:var(--muted);letter-spacing:.18em;
+    text-align:right;
+  }
+  .hero-signature .kanji{
+    font-family:var(--serif);font-size:14px;color:var(--navy-700);
+    letter-spacing:.32em;margin-bottom:6px;
+  }
+
+  /* ============ Section base ============ */
+  section{padding:128px 0;border-bottom:1px solid var(--line)}
+  section.soft{background:var(--bg-soft)}
+  section.dark{background:var(--navy-900);color:#E6EBF3;border-bottom:none}
+  section.dark .muted{color:#8DA0BE}
+  section.dark h2, section.dark h3{color:#fff}
+
+  /* Eyebrow / section label — 反復 */
+  .section-label{
+    display:flex;align-items:center;gap:16px;
+    font-size:13px;letter-spacing:.28em;
+    color:var(--navy-700);
+    margin-bottom:24px;font-weight:500;
+    text-transform:uppercase;
+  }
+  .section-label .num{
+    font-family:var(--serif);font-size:15px;
+    color:var(--navy-700);letter-spacing:.1em;
+  }
+  .section-label .bar{flex:0 0 32px;height:1px;background:var(--navy-700);opacity:.4}
+
+  section.dark .section-label{color:#B7C4DB}
+  section.dark .section-label .num{color:var(--gold)}
+  section.dark .section-label .bar{background:#8DA0BE;opacity:.5}
+
+  h2.section-title{
+    font-family:var(--serif);font-weight:700;
+    font-size:40px;line-height:1.5;
+    color:var(--navy-900);
+    margin:0 0 32px;letter-spacing:.02em;
+    max-width:840px;
+    text-wrap:pretty;
+  }
+  section.dark h2.section-title{color:#fff}
+  h2.section-title .em{color:var(--red)}
+
+  .section-lead{
+    font-size:18px;line-height:2;color:var(--text);
+    max-width:760px;margin:0 0 72px;
+    text-wrap:pretty;
+  }
+  .section-lead strong{color:var(--navy-900);font-weight:500}
+  section.dark .section-lead{color:#C6D1E5}
+  section.dark .section-lead strong{color:#fff}
+
+  /* ============ About note ============ */
+  .about{
+    background:var(--bg-soft);
+    padding:24px 0;border-bottom:1px solid var(--line);
+  }
+  .about-inner{
+    display:grid;grid-template-columns:160px 1fr;gap:32px;align-items:start;
+    max-width:var(--container);margin:0 auto;padding:0 var(--gutter);
+  }
+  .about dt{font-size:12px;letter-spacing:.2em;color:var(--muted);font-weight:500}
+  .about dd{font-size:14px;color:var(--text);margin:0;line-height:1.85}
+
+  /* ============ Section: 制度はある。届かない。============ */
+  .gap-diagram{
+    margin-top:48px;
+    padding:64px 48px;
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+  }
+  .gap-diagram-row{
+    display:grid;grid-template-columns:1fr auto 1fr;
+    gap:24px;align-items:center;
+  }
+  .gap-block{
+    text-align:center;padding:32px 24px;
+    background:var(--bg-soft);border-radius:var(--radius);
+    border:1px solid var(--line);
+  }
+  .gap-block .label{
+    font-size:12px;letter-spacing:.24em;color:var(--navy-700);
+    margin-bottom:12px;font-weight:500;
+  }
+  .gap-block .name{
+    font-family:var(--serif);font-size:24px;color:var(--navy-900);
+    font-weight:700;letter-spacing:.04em;
+  }
+  .gap-mid{
+    text-align:center;
+    font-family:var(--serif);font-size:14px;color:var(--red);
+    letter-spacing:.16em;font-weight:500;line-height:1.6;
+    padding:0 16px;min-width:140px;
+  }
+  .gap-mid .arrow{
+    font-size:28px;letter-spacing:0;color:var(--line-strong);
+    margin-bottom:8px;line-height:1;
+  }
+  .gap-tagline{
+    margin-top:48px;text-align:center;
+    font-family:var(--serif);font-size:22px;color:var(--navy-900);
+    line-height:1.7;letter-spacing:.04em;
+  }
+  .gap-tagline strong{color:var(--red);font-weight:700}
+
+  /* ============ Section: アクセスコスト（6コスト）============ */
+  .cost-intro{
+    font-family:var(--serif);font-size:24px;line-height:1.85;
+    color:var(--navy-900);max-width:760px;margin:0 0 48px;
+    letter-spacing:.02em;
+  }
+  .cost-intro strong{color:var(--red);font-weight:700}
+
+  .cost-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:16px;
+    margin-top:24px;
+  }
+  .cost-card{
+    background:#fff;border:1px solid var(--line);
+    padding:32px 28px;border-radius:var(--radius);
+    display:flex;flex-direction:column;gap:16px;
+  }
+  .cost-card .ic{
+    width:40px;height:40px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--bg-soft);color:var(--navy-700);
+    font-family:var(--serif);font-size:14px;font-weight:700;
+    letter-spacing:.04em;
+  }
+  .cost-card h4{
+    font-family:var(--serif);font-size:20px;color:var(--navy-900);
+    margin:0;font-weight:700;line-height:1.5;letter-spacing:.02em;
+  }
+  .cost-card .voice{
+    margin:0;font-size:15px;color:var(--text);
+    line-height:1.85;text-wrap:pretty;
+  }
+  .cost-card .voice::before{
+    content:"「";font-family:var(--serif);color:var(--line-strong);
+  }
+  .cost-card .voice::after{
+    content:"」";font-family:var(--serif);color:var(--line-strong);
+  }
+
+  .cost-conclusion{
+    margin-top:64px;padding:32px 40px;
+    background:var(--navy-900);color:#fff;
+    border-radius:var(--radius);
+    font-family:var(--serif);font-size:20px;
+    line-height:1.85;letter-spacing:.04em;text-wrap:pretty;
+  }
+  .cost-conclusion strong{color:var(--gold);font-weight:700}
+
+  /* ============ Section: チャットbot不十分 ============ */
+  .input-cost-compare{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:16px;
+    margin-top:48px;
+  }
+  .icc{
+    background:#fff;border:1px solid var(--line);
+    border-radius:var(--radius);padding:32px 28px;
+    display:flex;flex-direction:column;gap:16px;
+    position:relative;
+  }
+  .icc.bad{border-color:var(--red-soft);background:#FFFAF9}
+  .icc .head{
+    display:flex;justify-content:space-between;align-items:baseline;
+    border-bottom:1px solid var(--line);padding-bottom:16px;
+  }
+  .icc.bad .head{border-bottom-color:var(--red-soft)}
+  .icc .name{
+    font-family:var(--serif);font-size:20px;color:var(--navy-900);
+    font-weight:700;line-height:1.4;letter-spacing:.02em;
+  }
+  .icc .verdict{
+    font-size:11px;letter-spacing:.18em;font-weight:500;
+    color:var(--green-700);
+  }
+  .icc.bad .verdict{color:var(--red)}
+  .icc-row{
+    display:grid;grid-template-columns:120px 1fr;gap:12px;
+    font-size:14px;line-height:1.7;align-items:start;
+  }
+  .icc-row dt{
+    color:var(--muted);font-size:13px;letter-spacing:.06em;font-weight:500;
+  }
+  .icc-row dd{margin:0;color:var(--text);font-weight:500}
+
+  .input-cost-conclusion{
+    margin-top:64px;padding:40px 48px;
+    background:#fff;border:2px solid var(--navy-900);
+    border-radius:var(--radius);
+  }
+  .input-cost-conclusion .label{
+    font-size:11px;letter-spacing:.28em;color:var(--red);
+    font-weight:500;margin-bottom:16px;
+  }
+  .input-cost-conclusion p{
+    margin:0;font-family:var(--serif);font-size:22px;color:var(--navy-900);
+    line-height:1.85;letter-spacing:.04em;text-wrap:pretty;
+  }
+  .input-cost-conclusion p strong{color:var(--red);font-weight:700}
+
+  /* ============ Section 01: Problem (legacy, unused after restructure) ============ */
+  .disconnect-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:24px;
+    margin-top:40px;
+  }
+  .disconnect-card{
+    border:1px solid var(--line);background:#fff;
+    padding:32px;border-radius:var(--radius);
+    position:relative;
+  }
+  .disconnect-card .meta{
+    display:flex;justify-content:space-between;align-items:baseline;
+    margin-bottom:16px;
+  }
+  .disconnect-card .tag{
+    display:inline-block;font-size:12px;letter-spacing:.18em;
+    color:var(--navy-700);font-weight:500;
+    padding:4px 10px;background:var(--bg-soft);border-radius:2px;
+  }
+  .disconnect-card .num{
+    font-family:var(--serif);font-size:26px;color:var(--line-strong);
+    line-height:1;
+  }
+  .disconnect-card h3{
+    font-family:var(--serif);font-size:24px;font-weight:700;
+    color:var(--navy-900);margin:0 0 16px;letter-spacing:.02em;line-height:1.5;
+  }
+  .disconnect-card p{
+    margin:0;font-size:16px;color:var(--text);line-height:1.9;
+    text-wrap:pretty;
+  }
+
+  /* Funnel diagram */
+  .funnel{
+    margin-top:96px;
+    padding:48px;
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+  }
+  .funnel h3{
+    font-family:var(--serif);font-size:22px;color:var(--navy-900);
+    margin:0 0 8px;font-weight:700;line-height:1.5;
+  }
+  .funnel .sub{color:var(--muted);font-size:15px;margin-bottom:32px}
+  .funnel-svg-wrap{position:relative}
+
+  /* ============ Section 02: Why avatar ============ */
+  .compare-toggle{
+    display:inline-flex;border:1px solid var(--line-strong);border-radius:4px;
+    margin-bottom:32px;background:#fff;overflow:hidden;
+    font-size:14px;letter-spacing:.08em;
+  }
+  .compare-toggle button{
+    background:none;border:none;padding:10px 20px;cursor:pointer;
+    color:var(--muted);font-family:var(--sans);letter-spacing:.08em;
+    font-size:14px;
+  }
+  .compare-toggle button.active{
+    background:var(--navy-900);color:#fff;
+  }
+
+  /* Compare table */
+  .compare-table{
+    width:100%;border-collapse:collapse;margin-top:24px;
+    font-size:15px;background:#fff;
+  }
+  .compare-table thead th{
+    background:var(--navy-900);color:#fff;
+    padding:20px 18px;font-weight:500;font-size:14px;
+    text-align:left;letter-spacing:.06em;
+    border-right:1px solid var(--navy-700);
+    line-height:1.5;
+  }
+  .compare-table thead th:first-child{background:var(--navy-800);width:220px}
+  .compare-table thead th.highlight{background:var(--navy-900);position:relative}
+  .compare-table thead th.highlight::before{
+    content:"本提案";position:absolute;top:-24px;left:50%;transform:translateX(-50%);
+    background:var(--red);color:#fff;font-size:11px;letter-spacing:.2em;
+    padding:4px 12px;border-radius:2px;font-weight:500;
+  }
+  .compare-table tbody th{
+    text-align:left;padding:24px 18px;font-weight:500;
+    font-family:var(--serif);color:var(--navy-900);font-size:16px;
+    background:var(--bg-soft);border-bottom:1px solid var(--line);
+    border-right:1px solid var(--line);line-height:1.5;
+  }
+  .compare-table tbody td{
+    padding:24px 18px;border-bottom:1px solid var(--line);border-right:1px solid var(--line);
+    vertical-align:top;color:var(--text);
+  }
+  .compare-table tbody td.highlight{background:#FAFCFB;border-left:2px solid var(--green-700)}
+  .compare-table tbody td:last-child{border-right:none}
+  .compare-table .rating{
+    display:inline-flex;gap:4px;margin-bottom:10px;
+  }
+  .compare-table .dot{
+    width:10px;height:10px;border-radius:50%;background:var(--line-strong);
+  }
+  .compare-table .dot.on{background:var(--navy-700)}
+  .compare-table .highlight .dot.on{background:var(--green-700)}
+  .compare-table .note{
+    display:block;font-size:14px;color:var(--muted);line-height:1.75;
+  }
+
+  /* Cards variant */
+  .compare-cards{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:24px;
+  }
+  .compare-card{
+    border:1px solid var(--line);background:#fff;padding:32px 24px;
+    border-radius:var(--radius);position:relative;
+    display:flex;flex-direction:column;
+  }
+  .compare-card.highlight{
+    border-color:var(--green-700);
+    box-shadow:var(--shadow-card);
+  }
+  .compare-card .badge{
+    position:absolute;top:-12px;left:24px;
+    background:var(--red);color:#fff;font-size:10px;letter-spacing:.2em;
+    padding:4px 12px;border-radius:2px;font-weight:500;
+  }
+  .compare-card h4{
+    font-family:var(--serif);font-size:20px;color:var(--navy-900);
+    margin:0 0 4px;font-weight:700;line-height:1.5;
+  }
+  .compare-card .cat{
+    font-size:12px;letter-spacing:.18em;color:var(--muted);
+    margin-bottom:24px;font-weight:500;
+  }
+  .compare-card.highlight .cat{color:var(--green-700)}
+  .compare-card .metric{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:14px 0;border-bottom:1px solid var(--line);font-size:14px;
+  }
+  .compare-card .metric:last-of-type{border-bottom:none}
+  .compare-card .metric-label{color:var(--muted);font-size:13px}
+  .compare-card .rating{display:inline-flex;gap:4px}
+  .compare-card .dot{width:10px;height:10px;border-radius:50%;background:var(--line-strong)}
+  .compare-card .dot.on{background:var(--navy-700)}
+  .compare-card.highlight .dot.on{background:var(--green-700)}
+  .compare-card .summary{
+    margin-top:24px;padding-top:24px;border-top:1px solid var(--line);
+    font-size:14px;line-height:1.85;color:var(--text);
+    text-wrap:pretty;
+  }
+
+  /* Quote / blockquote */
+  .blockquote-note{
+    margin-top:64px;padding:32px 40px;
+    background:var(--bg-panel);border-left:3px solid var(--navy-700);
+    border-radius:0 var(--radius) var(--radius) 0;
+  }
+  .blockquote-note p{
+    margin:0;font-family:var(--serif);font-size:19px;line-height:1.9;color:var(--navy-900);
+    text-wrap:pretty;
+  }
+  .blockquote-note p strong{color:var(--red);font-weight:700}
+
+  /* ============ Section 03: Kishiwada ============ */
+  .kishiwada-grid{
+    display:block;margin-top:24px;
+  }
+  .character-duo{display:grid;grid-template-columns:1fr 1fr;gap:32px;max-width:1040px;margin:0 auto}
+  .character-card{
+    position:relative;aspect-ratio:5/8;
+    background:linear-gradient(180deg, #F4EEE0 0%, #E8DCC4 100%);
+    border:1px solid var(--gold-soft);border-radius:8px;overflow:hidden;
+  }
+  .character-card img{
+    position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:bottom center;
+    padding:12px 8px 0;
+  }
+  .character-card .role{
+    position:absolute;left:0;right:0;bottom:0;
+    background:linear-gradient(180deg, transparent 0%, rgba(14,30,55,.82) 100%);
+    color:#fff;padding:32px 16px 14px;
+    font-family:var(--serif);font-size:13px;letter-spacing:.18em;text-align:center;
+  }
+  .character-card .role .sub{
+    display:block;font-family:var(--sans);font-size:10px;letter-spacing:.24em;
+    color:#E0C99A;margin-top:4px;
+  }
+  .character-card .corner{position:absolute;width:22px;height:22px;border:1px solid var(--gold);pointer-events:none;z-index:2}
+  .character-card .corner.tl{top:10px;left:10px;border-right:none;border-bottom:none}
+  .character-card .corner.br{bottom:10px;right:10px;border-left:none;border-top:none}
+  .character-placeholder{aspect-ratio:4/5;display:none}
+    border-radius:var(--radius);
+    position:relative;overflow:hidden;
+    border:1px solid var(--gold-soft);
+  }
+  .character-placeholder::before{
+    content:"";position:absolute;inset:0;
+    background:repeating-linear-gradient(45deg, transparent 0 24px, rgba(184,137,58,.06) 24px 25px);
+  }
+  .character-placeholder-label{
+    position:absolute;inset:0;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;
+    font-family:var(--serif);text-align:center;gap:16px;
+  }
+  .character-placeholder-label .big{
+    font-size:56px;letter-spacing:.16em;color:var(--navy-800);line-height:1;
+  }
+  .character-placeholder-label .sub{
+    font-size:12px;letter-spacing:.32em;color:var(--muted);
+  }
+  .character-placeholder-label .desc{
+    font-size:13px;color:var(--muted);letter-spacing:.04em;
+    max-width:260px;line-height:1.85;margin-top:8px;font-family:var(--sans);
+  }
+  .character-placeholder .corner{
+    position:absolute;width:32px;height:32px;border:1px solid var(--gold);
+  }
+  .character-placeholder .corner.tl{top:16px;left:16px;border-right:none;border-bottom:none}
+  .character-placeholder .corner.br{bottom:16px;right:16px;border-left:none;border-top:none}
+
+  .character-caption{
+    margin-top:24px;font-size:14px;color:var(--muted);
+    letter-spacing:.04em;text-align:left;line-height:1.85;
+    max-width:1040px;margin-left:auto;margin-right:auto;
+  }
+
+  .meaning-list{list-style:none;padding:0;margin:0}
+  .meaning-list li{
+    padding:28px 0;border-top:1px solid var(--line);
+    display:grid;grid-template-columns:72px 1fr;gap:24px;align-items:start;
+  }
+  .meaning-list li:last-child{border-bottom:1px solid var(--line)}
+  .meaning-list .k{
+    font-family:var(--serif);font-size:28px;color:var(--navy-700);
+    font-weight:700;letter-spacing:.08em;line-height:1;
+  }
+  .meaning-list .v{
+    color:var(--text);font-size:16px;line-height:1.9;
+    text-wrap:pretty;
+  }
+  .meaning-list .v strong{
+    color:var(--navy-900);font-weight:500;font-family:var(--serif);
+  }
+
+  /* ============ Section 04: Target ============ */
+  .target-intro{
+    background:var(--navy-900);color:#E6EBF3;
+    padding:48px;border-radius:var(--radius);margin-top:24px;
+  }
+  .target-intro h3{
+    font-family:var(--serif);font-size:24px;color:#fff;
+    margin:0 0 16px;font-weight:700;line-height:1.5;
+  }
+  .target-intro p{
+    margin:0;font-size:17px;line-height:2;color:#C6D1E5;max-width:760px;
+    text-wrap:pretty;
+  }
+
+  .target-three{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:24px;
+  }
+  .target-card{
+    border:1px solid var(--line);background:#fff;
+    padding:32px;border-radius:var(--radius);
+  }
+  .target-card .no{
+    font-family:var(--serif);font-size:13px;color:var(--navy-700);
+    letter-spacing:.24em;margin-bottom:16px;font-weight:500;
+  }
+  .target-card h4{
+    font-family:var(--serif);font-size:28px;color:var(--navy-900);
+    margin:0 0 16px;font-weight:700;letter-spacing:.04em;line-height:1.4;
+  }
+  .target-card .desc{
+    font-size:15px;color:var(--muted);margin:0 0 24px;line-height:1.85;
+    text-wrap:pretty;
+  }
+  .target-card .barriers{
+    border-top:1px solid var(--line);padding-top:24px;margin:0;
+  }
+  .target-card .barriers dt{
+    font-size:12px;letter-spacing:.18em;color:var(--muted);
+    margin-bottom:12px;font-weight:500;
+  }
+  .target-card .barriers dd{
+    margin:0 0 10px;font-size:15px;color:var(--text);line-height:1.75;
+    padding-left:18px;position:relative;
+  }
+  .target-card .barriers dd::before{
+    content:"";position:absolute;left:0;top:13px;
+    width:10px;height:1px;background:var(--navy-700);
+  }
+  .target-card .barriers dd:last-child{margin-bottom:0}
+
+  .usecase-row{
+    margin-top:64px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;
+  }
+  .usecase{
+    background:#fff;padding:32px 24px;border-radius:var(--radius);
+    border-left:2px solid var(--green-700);border-top:1px solid var(--line);
+    border-right:1px solid var(--line);border-bottom:1px solid var(--line);
+  }
+  .usecase .time{
+    font-size:12px;letter-spacing:.18em;color:var(--green-700);
+    margin-bottom:12px;font-weight:500;
+  }
+  .usecase p{
+    font-family:var(--serif);margin:0;font-size:17px;
+    color:var(--navy-900);line-height:1.9;
+    text-wrap:pretty;
+  }
+
+  .usecase-note{
+    margin-top:32px;font-size:13px;color:var(--muted);
+    text-align:center;letter-spacing:.04em;
+  }
+
+  /* ============ Section 05: Capabilities ============ */
+  .cap-grid{
+    display:grid;grid-template-columns:repeat(2,1fr);gap:40px 64px;margin-top:24px;
+  }
+  .cap{
+    display:grid;grid-template-columns:48px 1fr;gap:24px;align-items:start;
+    padding-top:32px;border-top:1px solid var(--line);
+  }
+  .cap-icon{
+    width:44px;height:44px;border:1px solid var(--navy-700);border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--serif);color:var(--navy-700);font-size:14px;
+    letter-spacing:.04em;flex-shrink:0;
+  }
+  .cap h4{
+    font-family:var(--serif);font-size:20px;color:var(--navy-900);
+    margin:0 0 10px;font-weight:700;line-height:1.5;
+  }
+  .cap p{
+    margin:0;font-size:15px;color:var(--text);line-height:1.9;
+    text-wrap:pretty;
+  }
+
+  .principle{
+    margin-top:80px;padding:40px 48px;background:#FFF9F1;
+    border:1px solid var(--gold-soft);border-radius:var(--radius);
+    display:grid;grid-template-columns:auto 1fr;gap:32px;align-items:center;
+  }
+  .principle .mark{
+    font-family:var(--serif);font-size:28px;color:var(--navy-900);
+    letter-spacing:.16em;font-weight:700;
+  }
+  .principle p{
+    margin:0;font-family:var(--serif);font-size:18px;
+    color:var(--navy-900);line-height:1.9;text-wrap:pretty;
+  }
+  .principle p strong{color:var(--red);font-weight:700}
+
+  /* ============ Section 06: Human handoff (dark) ============ */
+  .handoff-stack{
+    margin-top:24px;
+    display:grid;grid-template-columns:5fr 7fr;gap:80px;align-items:start;
+  }
+  .handoff-copy h3{
+    font-family:var(--serif);font-size:26px;color:#fff;
+    margin:0 0 24px;font-weight:700;line-height:1.5;
+  }
+  .handoff-copy p{
+    font-size:16px;line-height:2;color:#C6D1E5;
+    text-wrap:pretty;
+  }
+  .handoff-list{margin:0;padding:0;list-style:none}
+  .handoff-list li{
+    padding:18px 0;border-top:1px solid #2A3D5E;font-size:15px;color:#C6D1E5;
+    display:grid;grid-template-columns:36px 1fr;gap:16px;align-items:start;
+    line-height:1.7;
+  }
+  .handoff-list li:last-child{border-bottom:1px solid #2A3D5E}
+  .handoff-list .k{color:var(--gold);font-family:var(--serif);font-size:15px}
+
+  .handoff-diagram{
+    margin-top:64px;padding:40px 0;
+    border-top:1px solid #2A3D5E;
+  }
+
+  /* ============ Section 07: KPI ============ */
+  .kpi-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px;
+  }
+  .kpi{
+    border:1px solid var(--line);background:#fff;
+    padding:32px 24px;border-radius:var(--radius);
+  }
+  .kpi .cat{
+    font-size:11px;letter-spacing:.24em;color:var(--navy-700);
+    margin-bottom:16px;font-weight:500;
+    display:inline-block;padding:5px 10px;background:var(--bg-soft);border-radius:2px;
+  }
+  .kpi h4{
+    font-family:var(--serif);font-size:20px;color:var(--navy-900);
+    margin:0 0 12px;font-weight:700;line-height:1.5;
+  }
+  .kpi p{
+    margin:0;font-size:15px;color:var(--muted);line-height:1.85;
+    text-wrap:pretty;
+  }
+  .kpi .val{
+    margin-top:24px;padding-top:16px;border-top:1px solid var(--line);
+    font-size:12px;color:var(--muted);letter-spacing:.06em;font-family:var(--sans);
+  }
+
+  .kpi-note{
+    margin-top:40px;padding:24px 32px;background:var(--bg-soft);
+    border-radius:var(--radius);
+    font-size:15px;color:var(--text);text-align:center;
+    letter-spacing:.02em;line-height:1.85;
+  }
+  .kpi-note strong{color:var(--navy-900);font-weight:500}
+
+  /* ============ Section 08: Phase ============ */
+  .phase-track{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:0;
+    margin-top:40px;position:relative;
+  }
+  .phase{
+    padding:40px 32px;background:#fff;border:1px solid var(--line);
+    position:relative;
+  }
+  .phase:nth-child(1){border-radius:var(--radius) 0 0 var(--radius);border-right:none}
+  .phase:nth-child(2){border-right:none}
+  .phase:nth-child(3){border-radius:0 var(--radius) var(--radius) 0}
+  .phase .no{
+    font-family:var(--serif);font-size:13px;letter-spacing:.28em;
+    color:var(--navy-700);margin-bottom:16px;font-weight:500;
+  }
+  .phase h4{
+    font-family:var(--serif);font-size:26px;color:var(--navy-900);
+    margin:0 0 8px;font-weight:700;letter-spacing:.04em;line-height:1.4;
+  }
+  .phase .period{
+    font-size:14px;color:var(--muted);letter-spacing:.08em;
+    margin-bottom:24px;font-family:var(--sans);
+  }
+  .phase ul{margin:0;padding:0;list-style:none}
+  .phase li{
+    padding:14px 0;font-size:15px;color:var(--text);line-height:1.75;
+    border-top:1px solid var(--line);padding-left:18px;position:relative;
+  }
+  .phase li:first-child{border-top:none}
+  .phase li::before{
+    content:"";position:absolute;left:0;top:25px;
+    width:10px;height:1px;background:var(--navy-700);
+  }
+  .phase.current{border-color:var(--navy-700)}
+  .phase.current::after{
+    content:"START";position:absolute;top:-12px;left:32px;
+    background:var(--red);color:#fff;font-size:11px;letter-spacing:.24em;
+    padding:5px 12px;border-radius:2px;font-weight:500;
+  }
+
+  .extend{
+    margin-top:64px;padding:32px 40px;
+    border:1px dashed var(--line-strong);border-radius:var(--radius);
+    background:#fff;
+    display:grid;grid-template-columns:200px 1fr;gap:40px;align-items:center;
+  }
+  .extend h4{
+    font-family:var(--sans);font-size:13px;letter-spacing:.28em;
+    color:var(--muted);margin:0;font-weight:500;line-height:1.6;
+  }
+  .extend p{
+    margin:0;font-size:15px;color:var(--text);line-height:1.85;
+    text-wrap:pretty;
+  }
+
+  /* ============ CTA ============ */
+  .cta-section{
+    background:var(--navy-900);
+    background-image:
+      radial-gradient(800px 400px at 80% 20%, rgba(184,137,58,.08), transparent 60%),
+      radial-gradient(600px 400px at 10% 90%, rgba(181,50,42,.08), transparent 60%);
+    color:#fff;padding:128px 0;border-bottom:none;
+  }
+  .cta-section h2{
+    font-family:var(--serif);font-size:48px;font-weight:700;
+    line-height:1.5;color:#fff;margin:0 0 32px;max-width:840px;
+    letter-spacing:.02em;text-wrap:pretty;
+  }
+  .cta-section .lead{
+    font-size:18px;color:#C6D1E5;line-height:2;
+    max-width:680px;margin:0 0 64px;text-wrap:pretty;
+  }
+  .cta-grid{
+    display:grid;grid-template-columns:2fr 1fr 1fr;gap:16px;align-items:stretch;
+  }
+  .cta-btn{
+    display:flex;flex-direction:column;
+    padding:40px 32px;border-radius:var(--radius);
+    text-decoration:none;transition:transform .2s, box-shadow .2s, border-color .2s;
+  }
+  .cta-btn:hover{transform:translateY(-2px)}
+  .cta-btn.primary{
+    background:#fff;color:var(--navy-900);
+    box-shadow:0 8px 32px rgba(0,0,0,.2);
+    border:2px solid var(--red);
+  }
+  .cta-btn.primary:hover{box-shadow:0 12px 40px rgba(0,0,0,.3)}
+  .cta-btn.secondary{
+    background:transparent;color:#fff;border:1px solid #3A5075;
+  }
+  .cta-btn.secondary:hover{
+    background:rgba(255,255,255,.03);border-color:var(--gold);
+  }
+  .cta-btn .tag{
+    font-size:11px;letter-spacing:.24em;margin-bottom:16px;
+    display:block;font-weight:500;
+  }
+  .cta-btn.primary .tag{color:var(--red)}
+  .cta-btn.secondary .tag{color:var(--gold)}
+  .cta-btn h3{
+    font-family:var(--serif);font-size:24px;
+    margin:0 0 10px;font-weight:700;line-height:1.5;
+  }
+  .cta-btn.primary h3{color:var(--navy-900)}
+  .cta-btn p{
+    margin:0;font-size:14px;line-height:1.85;opacity:.8;
+    text-wrap:pretty;
+  }
+  .cta-btn .arrow{
+    margin-top:auto;padding-top:24px;
+    font-size:14px;letter-spacing:.12em;display:flex;align-items:center;gap:8px;
+  }
+  .cta-btn.primary .arrow{color:var(--red)}
+
+  /* ============ Footer ============ */
+  footer{
+    background:var(--navy-900);color:#8DA0BE;
+    padding:32px 0;border-top:1px solid #1C3761;font-size:13px;
+  }
+  .footer-inner{
+    max-width:var(--container);margin:0 auto;padding:0 var(--gutter);
+    display:flex;justify-content:space-between;align-items:center;gap:24px;
+  }
+  footer .sign{
+    font-family:var(--serif);letter-spacing:.32em;color:#C6D1E5;
+  }
+
+  /* ============ Utilities ============ */
+  .muted{color:var(--muted)}
+  .serif{font-family:var(--serif)}
+
+  /* ============ Responsive ============ */
+  @media (max-width: 980px){
+    :root{--gutter:24px}
+    body{font-size:17px}
+    section{padding:80px 0}
+    .hero{padding:80px 0}
+    .hero h1{font-size:40px}
+    .cta-section h2{font-size:32px}
+    h2.section-title{font-size:28px}
+    .kishiwada-grid,.handoff-stack,.disconnect-grid{grid-template-columns:1fr;gap:32px}
+    .target-three,.kpi-grid,.usecase-row,.cap-grid{grid-template-columns:1fr;gap:16px}
+    .cost-grid,.input-cost-compare{grid-template-columns:1fr;gap:16px}
+    .gap-diagram{padding:32px 24px}
+    .gap-diagram-row{grid-template-columns:1fr;gap:16px}
+    .gap-mid{padding:8px 0;min-width:0}
+    .gap-mid .arrow{transform:rotate(90deg)}
+    .input-cost-conclusion{padding:24px 28px}
+    .cost-conclusion{padding:24px 28px;font-size:17px}
+    .compare-cards{grid-template-columns:1fr 1fr}
+    .phase-track{grid-template-columns:1fr}
+    .phase{border-radius:var(--radius) !important;border-right:1px solid var(--line) !important;margin-bottom:16px}
+    .cta-grid{grid-template-columns:1fr}
+    .hero-meta{grid-template-columns:1fr}
+    .hero-meta > div{
+      border-right:none;border-bottom:1px solid var(--line);
+      padding:16px 0 !important;
+    }
+    .about-inner{grid-template-columns:1fr;gap:8px}
+    .extend{grid-template-columns:1fr;gap:16px}
+    .principle{grid-template-columns:1fr;gap:16px;padding:32px}
+    .funnel{padding:32px 24px;overflow-x:auto}
+    .target-intro{padding:32px}
+    .footer-inner{flex-direction:column;align-items:flex-start}
+  }
+</style>
+</head>
+<body>
+
+<!-- Top bar -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-left">
+      <span class="topbar-tag">提案資料 / PROPOSAL</span>
+      <span>自治体 行政相談支援DX 構想</span>
+    </div>
+    <div class="topbar-right">
+      <span>2026</span>
+      <span>Ver. 1.0</span>
+    </div>
+  </div>
+</div>
+
+<!-- ================= HERO ================= -->
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <div class="hero-eyebrow">AIアバターによる相談支援フロント構想</div>
+        <h1>支援へたどり着けない人へ、<br><span class="accent">新しい入口を。</span></h1>
+        <p class="hero-lead">
+          窓口に行けない。電話ができない。FAQは読み切れない。オンライン申請も書けない。行政DXが進むほど、制度の外側に置かれたままの人がいます。本提案は、●●市のAIアバター「地車 祭華」を観光発信ではなく、<strong>住民の相談支援フロント</strong>として位置づける構想です。
+        </p>
+        <dl class="hero-meta">
+          <div><dt>提案領域</dt><dd>住民接点／相談支援</dd></div>
+          <div><dt>対象自治体</dt><dd>大阪府 ●●市</dd></div>
+          <div><dt>初期テーマ</dt><dd>若者・不登校・ひきこもり層</dd></div>
+        </dl>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-video-wrap">
+          <video src="assets/hero-video.mp4" autoplay muted loop playsinline></video>
+          <div class="hero-video-corner tl"></div>
+          <div class="hero-video-corner br"></div>
+          <div class="hero-video-caption">
+            <span class="kanji">地 車 祭 華</span>
+            <span>DANJIRI MATSURIKA</span>
+          </div>
+        </div>
+      </div>
+    </div>
+</header>
+
+<!-- About note -->
+<div class="about">
+  <dl class="about-inner">
+    <dt>本資料について</dt>
+    <dd>
+      本資料は、自治体の相談支援・住民接点領域におけるAIアバター活用の構想案として作成されたものです。提案主体については別途記載。現時点で●●市と本構想との間に正式な協議関係はありません。
+    </dd>
+  </dl>
+</div>
+
+
+<!-- ================= SECTION 01: 制度はある。届かない。 ================= -->
+<section>
+  <div class="wrap">
+    <div class="section-label">
+      <span class="num">01</span><span class="bar"></span><span>課題提起</span>
+    </div>
+    <h2 class="section-title">制度はある。<br>でも、届かない人がいます。</h2>
+    <p class="section-lead">
+      ●●市には、すでに多くの相談制度や支援窓口が整備されています。<br>
+      足りないのは、制度ではありません。<br>
+      <strong>制度と住民の間に、まだ「最初の入口」が足りていない。</strong>
+    </p>
+
+    <div class="gap-diagram">
+      <div class="gap-diagram-row">
+        <div class="gap-block">
+          <div class="label">CITIZEN</div>
+          <div class="name">住民</div>
+        </div>
+        <div class="gap-mid">
+          <div class="arrow">⋯⋯⋯</div>
+          到達の断絶
+        </div>
+        <div class="gap-block">
+          <div class="label">SUPPORT</div>
+          <div class="name">制度・支援</div>
+        </div>
+      </div>
+      <div class="gap-tagline">
+        問題は「制度の不在」ではなく、<strong>到達の不在</strong>。
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ================= SECTION 02: アクセスコスト ================= -->
+<section class="soft">
+  <div class="wrap">
+    <div class="section-label">
+      <span class="num">02</span><span class="bar"></span><span>なぜ届かないのか</span>
+    </div>
+    <h2 class="section-title">課題は、制度ではなく<br>“アクセスコスト”です。</h2>
+    <p class="section-lead">
+      相談にたどり着くまでに、住民は無自覚なまま、いくつものコストを支払っています。<br>
+      ひとつひとつは小さくても、重なると「もういいや」になる。<br>
+      支援につながれない人は、どこか1つの段階で止まっています。
+    </p>
+
+    <div class="cost-grid">
+      <div class="cost-card">
+        <div class="ic">01</div>
+        <h4>整理コスト</h4>
+        <p class="voice">何を相談すればいいか、自分でもわからない</p>
+      </div>
+      <div class="cost-card">
+        <div class="ic">02</div>
+        <h4>移動コスト</h4>
+        <p class="voice">窓口に行く時間も気力もない</p>
+      </div>
+      <div class="cost-card">
+        <div class="ic">03</div>
+        <h4>発話コスト</h4>
+        <p class="voice">電話で声を出すのがしんどい</p>
+      </div>
+      <div class="cost-card">
+        <div class="ic">04</div>
+        <h4>入力コスト</h4>
+        <p class="voice">フォームに文章を書く気力が出ない</p>
+      </div>
+      <div class="cost-card">
+        <div class="ic">05</div>
+        <h4>判断コスト</h4>
+        <p class="voice">どの窓口に行けばいいのかわからない</p>
+      </div>
+      <div class="cost-card">
+        <div class="ic">06</div>
+        <h4>感情コスト</h4>
+        <p class="voice">行政に怒られそうで怖い</p>
+      </div>
+    </div>
+
+    <div class="cost-conclusion">
+      制度がないのではない。<br>
+      <strong>制度へアクセスする“コスト”が高すぎる</strong>──ここが本当の課題です。
+    </div>
+  </div>
+</section>
+
+
+<!-- ================= SECTION 03: なぜチャットbotでは不十分か ================= -->
+<section>
+  <div class="wrap">
+    <div class="section-label">
+      <span class="num">03</span><span class="bar"></span><span>チャットbotの限界</span>
+    </div>
+    <h2 class="section-title">文章を書くこと自体が、<br>もう高コストな時代です。</h2>
+    <p class="section-lead">
+      1タップで動画を流し、声で家電を操作し、LINEでも音声メッセージが増える。<br>
+      日常の入口は、すでに「話す」「タップする」へ移っています。<br>
+      その中で、相談だけが「文章入力」を求めている──ここに静かな矛盾があります。
+    </p>
+
+    <div class="input-cost-compare">
+      <div class="icc">
+        <div class="head">
+          <span class="name">TikTok / Instagram</span>
+          <span class="verdict">入口◎</span>
+        </div>
+        <dl class="icc-row"><dt>操作</dt><dd>1タップ・スワイプ</dd></dl>
+        <dl class="icc-row"><dt>始まり方</dt><dd>受動的に始まる</dd></dl>
+        <dl class="icc-row"><dt>入力負荷</dt><dd>ほぼゼロ</dd></dl>
+      </div>
+      <div class="icc">
+        <div class="head">
+          <span class="name">LINE 音声メッセージ</span>
+          <span class="verdict">入口◯</span>
+        </div>
+        <dl class="icc-row"><dt>操作</dt><dd>長押しで話す</dd></dl>
+        <dl class="icc-row"><dt>始まり方</dt><dd>話すだけで送れる</dd></dl>
+        <dl class="icc-row"><dt>入力負荷</dt><dd>低い</dd></dl>
+      </div>
+      <div class="icc bad">
+        <div class="head">
+          <span class="name">チャットボット</span>
+          <span class="verdict">入口✕</span>
+        </div>
+        <dl class="icc-row"><dt>操作</dt><dd>テキスト入力必須</dd></dl>
+        <dl class="icc-row"><dt>始まり方</dt><dd>能動的に書く必要</dd></dl>
+        <dl class="icc-row"><dt>入力負荷</dt><dd>高い</dd></dl>
+      </div>
+    </div>
+
+    <div class="input-cost-conclusion">
+      <div class="label">CONSEQUENCE</div>
+      <p>
+        テキスト入力前提のチャットbotは、<br>
+        <strong>支援が必要な人ほど使われにくい</strong>──そんな逆転が起きています。
+      </p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ================= SECTION 02 ================= -->
+<section class="soft">
+  <div class="wrap">
+    <div class="section-label">
+      <span class="num">04</span><span class="bar"></span><span>なぜアバター＋音声か</span>
+    </div>
+    <h2 class="section-title">“人に対面で相談するのが怖い”
+だからこそ、最初はアバターのような存在が必要です。</h2>
+    <p class="section-lead">
+      チャットボットは冷たい。電話は緊張する。対面窓口はハードルが高い。<br><br>祭華は、その中間にある新しい相談導線です。<br><br>人格を感じられるアバターを介することで、「人に相談する怖さ」を下げながら、会話を続けやすくする。<br><br>これはデザインではありません。支援につながる確率を上げるための、心理設計です。
+    </p>
+
+    <!-- Compare toggle -->
+    <div class="compare-toggle" role="tablist">
+      <button class="active" data-view="table">表形式</button>
+      <button data-view="cards">カード形式</button>
+    </div>
+
+    <!-- Table view -->
+    <div id="compare-table-view">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>評価軸</th>
+            <th>チャットボット</th>
+            <th>電話</th>
+            <th>対面窓口</th>
+            <th class="highlight">AIアバター</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>心理的ハードルの低さ</th>
+            <td>
+              <span class="rating"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot"></span></span>
+              <span class="note">匿名・非同期。ただし無機質さが距離感を生む。</span>
+            </td>
+            <td>
+              <span class="rating"><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></span>
+              <span class="note">声を出す・即時応答。抵抗が最も強い。</span>
+            </td>
+            <td>
+              <span class="rating"><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></span>
+              <span class="note">来庁・身分提示・対面。最もハードルが高い。</span>
+            </td>
+            <td class="highlight">
+              <span class="rating"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span></span>
+              <span class="note">匿名・非対人・非同期可。最も入口として低い。</span>
+            </td>
+          </tr>
+          <tr>
+            <th>記憶への残りやすさ</th>
+            <td>
+              <span class="rating"><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></span>
+              <span class="note">窓口名しか残らず、再訪のきっかけが弱い。</span>
+            </td>
+            <td>
+              <span class="rating"><span class="dot on"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span></span>
+              <span class="note">番号の記憶。かけ直しの心理的負担あり。</span>
+            </td>
+            <td>
+              <span class="rating"><span class="dot on"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span></span>
+              <span class="note">担当者の顔記憶があるが、個人依存。</span>
+            </td>
+            <td class="highlight">
+              <span class="rating"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span></span>
+              <span class="note">名前・人格・地域文脈を持ち、固有名詞で想起される。</span>
+            </td>
+          </tr>
+          <tr>
+            <th>感情的安心感</th>
+            <td>
+              <span class="rating"><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></span>
+              <span class="note">テンプレ応答。感情の受け止めが弱い。</span>
+            </td>
+            <td>
+              <span class="rating"><span class="dot on"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span></span>
+              <span class="note">人間対応だが即時の判断を迫られる。</span>
+            </td>
+            <td>
+              <span class="rating"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span></span>
+              <span class="note">最も深い安心感。ただし到達できた人に限る。</span>
+            </td>
+            <td class="highlight">
+              <span class="rating"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot"></span></span>
+              <span class="note">キャラ介在で緊張が下がり、継続会話が成立しやすい。</span>
+            </td>
+          </tr>
+          <tr>
+            <th>継続利用のしやすさ</th>
+            <td>
+              <span class="rating"><span class="dot on"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span></span>
+              <span class="note">毎回ゼロスタートの会話になりやすい。</span>
+            </td>
+            <td>
+              <span class="rating"><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></span>
+              <span class="note">営業時間内の再連絡が負担。</span>
+            </td>
+            <td>
+              <span class="rating"><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></span>
+              <span class="note">予約・移動を毎回必要とする。</span>
+            </td>
+            <td class="highlight">
+              <span class="rating"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span></span>
+              <span class="note">24時間・匿名・同じ相手に「また会える」継続性。</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Cards view -->
+    <div id="compare-cards-view" style="display:none">
+      <div class="compare-cards">
+        <div class="compare-card">
+          <div class="cat">EXISTING</div>
+          <h4>チャットボット</h4>
+          <div class="metric"><span class="metric-label">心理的ハードル</span><span class="rating"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot"></span></span></div>
+          <div class="metric"><span class="metric-label">記憶への残り</span><span class="rating"><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></span></div>
+          <div class="metric"><span class="metric-label">感情的安心感</span><span class="rating"><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></span></div>
+          <div class="metric"><span class="metric-label">継続利用</span><span class="rating"><span class="dot on"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span></span></div>
+          <div class="summary">効率的だが無機質。感情の受け止めと人格的な継続性を欠き、入口としての「誘引力」が弱い。</div>
+        </div>
+
+        <div class="compare-card">
+          <div class="cat">EXISTING</div>
+          <h4>電話</h4>
+          <div class="metric"><span class="metric-label">心理的ハードル</span><span class="rating"><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></span></div>
+          <div class="metric"><span class="metric-label">記憶への残り</span><span class="rating"><span class="dot on"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span></span></div>
+          <div class="metric"><span class="metric-label">感情的安心感</span><span class="rating"><span class="dot on"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span></span></div>
+          <div class="metric"><span class="metric-label">継続利用</span><span class="rating"><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></span></div>
+          <div class="summary">人の介在はあるが即時性が緊張を生む。声を出すこと自体が高負荷の層には届かない。</div>
+        </div>
+
+        <div class="compare-card">
+          <div class="cat">EXISTING</div>
+          <h4>対面窓口</h4>
+          <div class="metric"><span class="metric-label">心理的ハードル</span><span class="rating"><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></span></div>
+          <div class="metric"><span class="metric-label">記憶への残り</span><span class="rating"><span class="dot on"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span></span></div>
+          <div class="metric"><span class="metric-label">感情的安心感</span><span class="rating"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span></span></div>
+          <div class="metric"><span class="metric-label">継続利用</span><span class="rating"><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></span></div>
+          <div class="summary">最も深い支援が可能。ただし「辿り着けた人」にしか届かない。抜本的な入口問題は解消しない。</div>
+        </div>
+
+        <div class="compare-card highlight">
+          <div class="badge">本提案</div>
+          <div class="cat">PROPOSAL</div>
+          <h4>AIアバター</h4>
+          <div class="metric"><span class="metric-label">心理的ハードル</span><span class="rating"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span></span></div>
+          <div class="metric"><span class="metric-label">記憶への残り</span><span class="rating"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span></span></div>
+          <div class="metric"><span class="metric-label">感情的安心感</span><span class="rating"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot"></span></span></div>
+          <div class="metric"><span class="metric-label">継続利用</span><span class="rating"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span></span></div>
+          <div class="summary">匿名・非対人・24時間でありながら人格と固有名詞を持つ。入口としての「低いハードル」と継続関係の「記憶性」を両立できる唯一の接点形態。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="blockquote-note">
+      <p>アバターは「可愛い顔をした窓口」ではありません。<strong>対人接触と非対人接触の“あいだ”</strong>に立ち、これまで誰とも接続できなかった人に、最初の声かけができる存在です。</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ================= SECTION 03 ================= -->
+<section>
+  <div class="wrap">
+    <div class="section-label">
+      <span class="num">05</span><span class="bar"></span><span>●●らしさと地車祭華</span>
+    </div>
+    <h2 class="section-title">観光PRのキャラクターではなく、<br>住民の記憶に既にいる人格として。</h2>
+    <p class="section-lead">相談の入口に必要なのは「かわいい」でも「新しい」でもありません。必要なのは、初めて会った気がしないという感覚です。地車（だんじり）は●●の住民にとって、世代を超えて共有される記憶と誇りの文脈です。その文脈に接続することで、祭華は「知らない窓口」ではなく「既に知っている存在」として立ち上がります。</p>
+
+    <div class="kishiwada-grid">
+      <div class="character-duo">
+        <div class="character-card">
+          <div class="corner tl"></div>
+          <div class="corner br"></div>
+          <img src="assets/matsurika-staff.png" alt="市職員としての祭華">
+          <div class="role">普段の祭華<span class="sub">EVERYDAY ・ 市職員</span></div>
+        </div>
+        <div class="character-card">
+          <div class="corner tl"></div>
+          <div class="corner br"></div>
+          <img src="assets/matsurika-festival.png" alt="だんじり祭りの祭華">
+          <div class="role">祭りの祭華<span class="sub">FESTIVAL ・ だんじり</span></div>
+        </div>
+      </div>
+      <div class="character-caption">
+        普段は「市職員」として住民に接し、祭りの日には「だんじりの中の一人」として同じ街にいる。二つの姿があることで、「知らない窓口」ではなく「既に知っている人」となります。
+      </div>
+
+      <div class="blockquote-note" style="max-width:1040px;margin-left:auto;margin-right:auto;margin-top:48px">
+        <p>祭華は●●市外への観光発信アイコンではなく、●●市民のための、内側に開かれた相談フロントとして設計されます。</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ================= SECTION 04 ================= -->
+<section class="soft">
+  <div class="wrap">
+    <div class="section-label">
+      <span class="num">06</span><span class="bar"></span><span>最初の導入テーマ</span>
+    </div>
+    <h2 class="section-title">「相談したい。でも、人が怖い。」<br>若者・不登校・ひきこもり層の相談入口。</h2>
+    <p class="section-lead">
+      人と話すのが怖い。相談窓口へ行く勇気が出ない。でも、誰かに助けてほしい。<br><br>祭華は、匿名で、深夜でも、顔を出さずに話しかけられる形を選びました。<br>今まで支援につながれなかった人へ、最初の一歩を届けるためです。
+    </p>
+
+    <div class="target-intro">
+      <h3>なぜ、この3層から始めるのか。</h3>
+      <p style="max-width:860px;font-weight:400">
+        問題は、「支援制度がないこと」ではありません。<br><br>本当の課題は、支援につながる前に止まってしまう人がいることです。<br><br>特に若者・不登校・ひきこもり層では、「人に相談する」という行為そのものが高い壁になります。<br><br>祭華は、その最初の心理的ハードルを下げるための仕組みです。<br>制度と住民の間にある“届かなかった距離”を埋めることが、Phase1の目的です。
+      </p>
+    </div>
+
+    <div class="target-three">
+      <div class="target-card">
+        <div class="no">LAYER 01</div>
+        <h4>若者</h4>
+        <p class="desc">15〜30代の、生活・就労・人間関係の悩みを抱えながら、既存窓口に接続されていない層。</p>
+        <dl class="barriers">
+          <dt>主な接続阻害</dt>
+          <dd>平日日中の稼働との不整合</dd>
+          <dd>「相談するほどでもない」という自己抑制</dd>
+          <dd>匿名で話せる相手の不在</dd>
+        </dl>
+      </div>
+      <div class="target-card">
+        <div class="no">LAYER 02</div>
+        <h4>不登校</h4>
+        <p class="desc">学校接点が弱まり、本人・保護者ともに公的相談につながりにくくなっている児童生徒・家庭。</p>
+        <dl class="barriers">
+          <dt>主な接続阻害</dt>
+          <dd>学校を介さない窓口の認知不足</dd>
+          <dd>保護者側の心理的負担</dd>
+          <dd>本人が介在しない相談の難しさ</dd>
+        </dl>
+      </div>
+      <div class="target-card">
+        <div class="no">LAYER 03</div>
+        <h4>ひきこもり</h4>
+        <p class="desc">外出・対面・電話のいずれも極めて高い負荷となり、既存導線に構造的に接続できない層。</p>
+        <dl class="barriers">
+          <dt>主な接続阻害</dt>
+          <dd>外出・来庁の不可能性</dd>
+          <dd>声を出す接触への忌避</dd>
+          <dd>当事者であるという自己認識の忌避</dd>
+        </dl>
+      </div>
+    </div>
+
+    <div class="usecase-row">
+      <div class="usecase">
+        <div class="time">深夜 02:40</div>
+        <p>「相談ってほどじゃないけど、ちょっと話していい？」</p>
+      </div>
+      <div class="usecase">
+        <div class="time">土曜 14:15</div>
+        <p>「母さんには言えへんねん。でも祭華になら言えるかも。」</p>
+      </div>
+      <div class="usecase">
+        <div class="time">火曜 23:02</div>
+        <p>「自分がどこに相談したらええんか、それが分からへん。」</p>
+      </div>
+    </div>
+
+    <div class="usecase-note">
+      ※ 上記はユースケースのイメージであり、特定の個人を指すものではありません。
+    </div>
+  </div>
+</section>
+
+
+<!-- ================= SECTION 05 ================= -->
+<!-- ================= SECTION 06 (dark) ================= -->
+<section class="dark">
+  <div class="wrap">
+    <div class="section-label">
+      <span class="num">07</span><span class="bar"></span><span>遠隔有人対応への将来拡張</span>
+    </div>
+    <h2 class="section-title">将来、祭華の向こう側には、<br>本物の支援員がいます。</h2>
+    <p class="section-lead">
+      相談員・自治体支援員・スクールソーシャルワーカーなどが、アバターを通して遠隔支援を行える構造へ発展します。<br><br>対面や来庁の心理的負担を下げながら、“人だからこそできる支援”を継続的に届ける。<br><br>それが、Phase2で実現したい支援の形です。
+    </p>
+
+    <div class="handoff-stack">
+      <div class="handoff-copy">
+        <h3>AIの役割は、孤立を防ぐこと。<br>人の役割は、深く支えること。</h3>
+        <p>祭華は、その両方をつなぐ仕組みです。<br><br>AIが24時間の入口として寄り添い、必要に応じて、相談員や支援員などの有人支援へ橋渡しをする。<br><br>相談員や支援員につながっても、住民が向き合うのは変わらず「祭華」です。アバターが間に入ることで、安心できる距離感のまま支援を受けられます。</p>
+      </div>
+      <div>
+        <ul class="handoff-list">
+          <li><span class="k">01</span><span>AIによる一次応答・状況整理</span></li>
+          <li><span class="k">02</span><span>支援必要性の判定と本人同意の取得</span></li>
+          <li><span class="k">03</span><span>有人支援員のアサインと文脈の引き継ぎ</span></li>
+          <li><span class="k">04</span><span>アバター越しでの遠隔対応（音声／テキスト）</span></li>
+          <li><span class="k">05</span><span>対面・制度利用への段階的な接続</span></li>
+          <li><span class="k">06</span><span>継続関係としての再来訪導線の維持</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="handoff-diagram">
+<svg viewBox="0 0 1000 220" width="100%" xmlns="http://www.w3.org/2000/svg" style="display:block">
+  <defs>
+    <linearGradient id="layerAI" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0%" stop-color="#1C3761"/>
+      <stop offset="100%" stop-color="#3B5480"/>
+    </linearGradient>
+    <linearGradient id="layerHuman" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0%" stop-color="#2F6B52"/>
+      <stop offset="100%" stop-color="#5C9A7F"/>
+    </linearGradient>
+  </defs>
+
+  <g font-family="Noto Sans JP" font-size="11" fill="#8DA0BE" letter-spacing="3">
+    <text x="140" y="30">住民</text>
+    <text x="410" y="30">祭華（アバター層）</text>
+    <text x="770" y="30">AI／有人 運用層</text>
+  </g>
+
+  <g>
+    <circle cx="150" cy="110" r="36" fill="none" stroke="#C6D1E5" stroke-width="1"/>
+    <circle cx="150" cy="100" r="10" fill="#C6D1E5"/>
+    <path d="M128 130 Q150 115 172 130" stroke="#C6D1E5" fill="none"/>
+    <text x="150" y="175" text-anchor="middle" font-family="Shippori Mincho, serif" font-size="12" fill="#C6D1E5" letter-spacing="3">相談者</text>
+  </g>
+
+  <rect x="300" y="65" width="360" height="100" fill="none" stroke="#B8893A" stroke-dasharray="4 4" rx="4"/>
+  <text x="480" y="60" text-anchor="middle" font-family="Shippori Mincho, serif" font-size="12" fill="#B8893A" letter-spacing="4">アバター介在層</text>
+
+  <rect x="320" y="85" width="150" height="60" fill="url(#layerAI)" rx="4"/>
+  <text x="395" y="115" text-anchor="middle" font-family="Shippori Mincho, serif" font-size="14" fill="#fff">AI 応答</text>
+  <text x="395" y="135" text-anchor="middle" font-family="Noto Sans JP" font-size="10" fill="#C6D1E5" letter-spacing="2">24H / 匿名 / 一次応答</text>
+
+  <rect x="490" y="85" width="150" height="60" fill="url(#layerHuman)" rx="4"/>
+  <text x="565" y="115" text-anchor="middle" font-family="Shippori Mincho, serif" font-size="14" fill="#fff">有人 応答</text>
+  <text x="565" y="135" text-anchor="middle" font-family="Noto Sans JP" font-size="10" fill="#E8F0EC" letter-spacing="2">遠隔 / 専門性 / 継続</text>
+
+  <path d="M 470 115 L 490 115" stroke="#fff" stroke-width="2"/>
+  <polygon points="488,111 496,115 488,119" fill="#fff"/>
+
+  <path d="M 190 115 L 300 115" stroke="#C6D1E5" stroke-width="1"/>
+  <polygon points="298,111 306,115 298,119" fill="#C6D1E5"/>
+
+  <rect x="720" y="70" width="220" height="90" fill="none" stroke="#3A5075" rx="4"/>
+  <text x="830" y="100" text-anchor="middle" font-family="Shippori Mincho, serif" font-size="12" fill="#C6D1E5" letter-spacing="3">自治体・支援機関</text>
+  <g font-family="Noto Sans JP" font-size="10" fill="#8DA0BE" letter-spacing="1">
+    <text x="830" y="125" text-anchor="middle">行政窓口 / SSW / 相談員</text>
+    <text x="830" y="140" text-anchor="middle">医療機関 / NPO</text>
+  </g>
+  <path d="M 660 115 L 720 115" stroke="#8DA0BE" stroke-width="1" stroke-dasharray="3 3"/>
+  <polygon points="718,111 726,115 718,119" fill="#8DA0BE"/>
+</svg>
+    </div>
+  </div>
+</section>
+
+
+<!-- ================= SECTION 07 ================= -->
+<section>
+  <div class="wrap">
+    <div class="section-label">
+      <span class="num">08</span><span class="bar"></span><span>KPI設計</span>
+    </div>
+    <h2 class="section-title">本当に困っている人ほど、<br>そもそも相談窓口に来ていません。</h2>
+    <p class="section-lead">
+      本当に重要なのは、既存の相談導線では届かなかった層へリーチできたか。そして、適切な行政・支援窓口へつなげられたかです。<br><br>今まで届かなかった人に届いたか。孤立したままの人を、支援につなげられたか。<br><br>その“変化”を大切にします。
+    </p>
+
+    <div class="kpi-grid">
+      <div class="kpi">
+        <span class="cat">REACH</span>
+        <h4>届いたか</h4>
+        <p>新規到達率──既存の行政相談履歴が無かった層へのリーチ割合。「拾えなかった層」に本当に届いているか。</p>
+        <div class="val">Net-New User Rate</div>
+      </div>
+      <div class="kpi">
+        <span class="cat">DEPTH</span>
+        <h4>続いたか</h4>
+        <p>継続相談率──2回以上の会話セッションに到達した利用者の比率。入口を越えて、関係が続いているか。</p>
+        <div class="val">Repeat Session Rate</div>
+      </div>
+      <div class="kpi">
+        <span class="cat">CONNECT</span>
+        <h4>つながったか</h4>
+        <p>行政窓口接続率──適切な公的窓口・支援機関への接続に至ったセッションの比率。AIで終わらせていないか。</p>
+        <div class="val">Handoff Rate</div>
+      </div>
+    </div>
+
+    <div class="kpi-note">
+      <strong>※</strong> 上記は代表指標です。深夜・休日利用比率／主観的安心感スコア／有人接続完了率／安全性インシデントなどの補助指標も併用します。具体的な数値目標は、Phase1の初期データ（運用開始から概ね2〜3ヶ月）を基準値として、自治体と協議のうえ設定します。
+    </div>
+  </div>
+</section>
+
+
+<!-- ================= SECTION 08 ================= -->
+<section class="soft">
+  <div class="wrap">
+    <div class="section-label">
+      <span class="num">09</span><span class="bar"></span><span>導入ステップ</span>
+    </div>
+    <h2 class="section-title">小さく始め、効果を確かめ、広げる。</h2>
+    <p class="section-lead">
+      全方位の実装から始めるのではなく、限定された対象・限定されたテーマでの小規模実証から開始します。Phase1で「本当に届いているか」を確認し、Phase2で有人連携を実装、Phase3で対象テーマの横展開へと進みます。
+    </p>
+
+    <div class="phase-track">
+      <div class="phase current">
+        <div class="no">PHASE 01</div>
+        <h4>限定実証</h4>
+        <div class="period">3 — 6 ヶ月</div>
+        <ul>
+          <li>対象を若者・不登校・ひきこもり層に限定</li>
+          <li>AI単独運用・24時間匿名相談</li>
+          <li>行政窓口への接続導線を手動設計</li>
+          <li>KPI基準値の取得と運用ガイドライン整備</li>
+          <li>安全性プロトコルの実運用検証</li>
+        </ul>
+      </div>
+      <div class="phase">
+        <div class="no">PHASE 02</div>
+        <h4>有人連携</h4>
+        <div class="period">6 — 12 ヶ月</div>
+        <ul>
+          <li>遠隔有人支援員とのハンドオーバー実装</li>
+          <li>アバター越しの有人対応UIの本番投入</li>
+          <li>対応範囲をPhase1テーマ内で拡張</li>
+          <li>継続相談関係の運用設計</li>
+          <li>事例ベースの運用改善サイクル確立</li>
+        </ul>
+      </div>
+      <div class="phase">
+        <div class="no">PHASE 03</div>
+        <h4>テーマ横展開</h4>
+        <div class="period">12 ヶ月 —</div>
+        <ul>
+          <li>対象テーマを段階的に拡張</li>
+          <li>高齢者／多言語／子育て相談などへ</li>
+          <li>他部局・支援機関との連携拡大</li>
+          <li>評価レポートの公開と運用知見の共有</li>
+          <li>他自治体への知見展開の可能性検討</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="extend">
+      <h4>他自治体への<br>横展開について</h4>
+      <p>本構想は●●市固有の文脈（地車・祭・地域の記憶性）を前提に設計されていますが、「アバターを相談フロントに置く構造」自体は他自治体にも適用可能です。ただし横展開はPhase3以降の検討事項であり、初期段階では●●市での実効性確立を最優先とします。</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ================= CTA ================= -->
+<section class="cta-section">
+  <div class="wrap">
+    <div class="section-label" style="color:#B7C4DB">
+      <span class="num" style="color:var(--gold)">10</span><span class="bar" style="background:#B7C4DB;opacity:.5"></span><span>次のアクション</span>
+    </div>
+    <h2>「届かなかった人」に、本当に届くのかを、まずは小さく確かめませんか。</h2>
+    <p class="lead">
+      まずは短期間・限定スコープでの実証実験を通じて、本構想の効果を定量的に検証することをご提案します。資料送付や、デモ環境を用いた説明機会も個別にご用意いたします。
+    </p>
+
+    <div class="cta-grid">
+      <a href="#" class="cta-btn primary">
+        <span class="tag">PRIMARY</span>
+        <h3>実証実験のご相談</h3>
+        <p>限定スコープでの小規模実証の実施可能性・スコープ・運用体制について、貴市の担当部署とご相談させてください。</p>
+        <div class="arrow">→ 相談フォームへ</div>
+      </a>
+      <a href="#" class="cta-btn secondary">
+        <span class="tag">DOCUMENT</span>
+        <h3>資料ダウンロード</h3>
+        <p>本構想の詳細提案書（PDF）をご提供します。</p>
+        <div class="arrow">→ ダウンロード</div>
+      </a>
+      <a href="#" class="cta-btn secondary">
+        <span class="tag">DEMO</span>
+        <h3>デモについて相談</h3>
+        <p>祭華の応答デモを個別にご案内します。</p>
+        <div class="arrow">→ 日程調整</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<footer>
+  <div class="footer-inner">
+    <div class="sign">地 車 祭 華 — DANJIRI MATSURIKA</div>
+    <div>本資料は提案目的の構想資料です。記載内容は今後の協議により変更される場合があります。</div>
+  </div>
+</footer>
+
+
+<script>
+  // Compare view toggle
+  const toggleBtns = document.querySelectorAll('.compare-toggle button');
+  const tableView = document.getElementById('compare-table-view');
+  const cardsView = document.getElementById('compare-cards-view');
+
+  toggleBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      toggleBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      if (btn.dataset.view === 'table') {
+        tableView.style.display = '';
+        cardsView.style.display = 'none';
+      } else {
+        tableView.style.display = 'none';
+        cardsView.style.display = '';
+      }
+    });
+  });
+
+  // =================== Tweaks ===================
+  const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+    "compareDefault": "table",
+    "heroAccent": "red"
+  }/*EDITMODE-END*/;
+
+  function applyTweaks(t){
+    if (t.compareDefault === 'cards'){
+      toggleBtns.forEach(b => b.classList.remove('active'));
+      document.querySelector('.compare-toggle button[data-view="cards"]').classList.add('active');
+      tableView.style.display = 'none';
+      cardsView.style.display = '';
+    } else {
+      toggleBtns.forEach(b => b.classList.remove('active'));
+      document.querySelector('.compare-toggle button[data-view="table"]').classList.add('active');
+      tableView.style.display = '';
+      cardsView.style.display = 'none';
+    }
+
+    const heroAccent = document.querySelector('.hero h1 .accent');
+    if (t.heroAccent === 'gold'){
+      heroAccent.style.color = 'var(--gold)';
+    } else if (t.heroAccent === 'green'){
+      heroAccent.style.color = 'var(--green-700)';
+    } else {
+      heroAccent.style.color = 'var(--red)';
+    }
+  }
+  applyTweaks(TWEAK_DEFAULTS);
+
+  // Tweaks panel
+  const tweakPanel = document.createElement('div');
+  tweakPanel.id = 'tweak-panel';
+  tweakPanel.style.cssText = `
+    position:fixed;right:24px;bottom:24px;width:288px;
+    background:#fff;border:1px solid #B8C2D1;border-radius:8px;
+    box-shadow:0 16px 48px rgba(14,30,55,.16);
+    padding:24px;font-family:'Noto Sans JP',system-ui,sans-serif;font-size:12px;
+    color:#1A2233;z-index:9999;display:none;
+  `;
+  tweakPanel.innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+      <div style="font-family:'Shippori Mincho',serif;font-size:14px;color:#0E1E37;letter-spacing:.08em;font-weight:700">Tweaks</div>
+      <div style="font-size:10px;color:#5A6A82;letter-spacing:.18em">PROPOSAL LP</div>
+    </div>
+    <div style="display:grid;gap:16px">
+      <label style="display:block">
+        <div style="font-size:11px;color:#5A6A82;letter-spacing:.08em;margin-bottom:8px;font-weight:500">比較表レイアウト</div>
+        <select id="tw-compare" style="width:100%;padding:8px;border:1px solid #D9DFE8;border-radius:4px;font-family:inherit;font-size:12px">
+          <option value="table">表形式</option>
+          <option value="cards">カード形式</option>
+        </select>
+      </label>
+      <label style="display:block">
+        <div style="font-size:11px;color:#5A6A82;letter-spacing:.08em;margin-bottom:8px;font-weight:500">ヒーローのアクセント色</div>
+        <select id="tw-accent" style="width:100%;padding:8px;border:1px solid #D9DFE8;border-radius:4px;font-family:inherit;font-size:12px">
+          <option value="red">赤（伝統・祭）</option>
+          <option value="gold">金（格式）</option>
+          <option value="green">緑（安心）</option>
+        </select>
+      </label>
+    </div>
+  `;
+  document.body.appendChild(tweakPanel);
+
+  const twCompare = tweakPanel.querySelector('#tw-compare');
+  const twAccent = tweakPanel.querySelector('#tw-accent');
+  twCompare.value = TWEAK_DEFAULTS.compareDefault;
+  twAccent.value = TWEAK_DEFAULTS.heroAccent;
+
+  function postEdit(k,v){
+    window.parent.postMessage({type:'__edit_mode_set_keys', edits:{[k]:v}}, '*');
+  }
+  twCompare.addEventListener('change', e => {
+    const v = e.target.value;
+    applyTweaks({...TWEAK_DEFAULTS, compareDefault:v, heroAccent:twAccent.value});
+    postEdit('compareDefault', v);
+  });
+  twAccent.addEventListener('change', e => {
+    const v = e.target.value;
+    applyTweaks({...TWEAK_DEFAULTS, heroAccent:v, compareDefault:twCompare.value});
+    postEdit('heroAccent', v);
+  });
+
+  window.addEventListener('message', e => {
+    if (!e.data || typeof e.data !== 'object') return;
+    if (e.data.type === '__activate_edit_mode') tweakPanel.style.display = 'block';
+    if (e.data.type === '__deactivate_edit_mode') tweakPanel.style.display = 'none';
+  });
+  window.parent.postMessage({type:'__edit_mode_available'}, '*');
+</script>
+
+</body>
+</html>
